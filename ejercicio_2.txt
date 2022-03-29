@@ -1,0 +1,38 @@
+#############################################################################
+##
+## PROBLEM 2
+##
+## In what ways can we refactor this code
+##
+#############################################################################
+#
+# app/models/user.rb
+# class User < ActiveRecord::Record
+#    attr_accessor :first_name, :last_name
+#    end
+#    # app/views/users/show.html.erb
+#    @user = User.find(1)
+#    <p> <%= @user.full_name %> </p>
+#    # app/views/users/other_1.html.erb
+#    <p> <%= @user.first_nm %> <%= @user.last_nm %> </p>
+#    # app/views/users/other_2.html.erb
+#    <p> <%= @user.first_nm %> <%= @user.last_nm %> </p>
+#    # app/views/users/other_3.html.erb
+#    <p> <%= @user.first_nm %> <%= @user.last_nm %> </p>
+
+## Answer #####
+# * I think we can refactor the files other_X.html.erb, for example trying to re-use code
+# instead of create duplicated code because each view file has the same behaviour.
+# * I think it is not necesary to expose the first name and last name attributes from the model,
+# we can create a method to return the information that the view will require. The problem with
+# that is that model is going to have more methods and will be overaloaded at some point so I suggest
+# to use a separate class to manage the properties of the model that will be shared with the views in
+# the mvc framework. For example, we can use use presenters.
+# * I think it's not a good idea to do a query in the view with the User.find(1), I think we should set
+# the user in the controller or delegate that responsability to another class.
+# * I think we should use something more generic instead of hardcoding the user 1 in the User.find(1)
+# * I think we should considere what will happened if the user could't be found. That logic shouldn't be
+# in the view, it should be in the controllers or a delegated class.
+# * We should refactor the names of the files, the names other_x are not clear.
+# * I think we use a presenters to handle the properties that will be needed in the view, because here we
+# have three methods and we can accomplish the same goal using one, for example the full_name.
